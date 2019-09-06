@@ -8,7 +8,7 @@ import './App.css';
 
 import RenderApp from './RenderApp'
 import Summarize from './Summarize';
-// import UpdateFeature from './UpdateFeature'
+import UpdateFeature from './UpdateFeature'
 
 // This object will allow us to
 // easily convert numbers into US dollar values
@@ -49,35 +49,28 @@ class App extends Component {
 
   render() {
 
-    // return (
-    //   <div className='App'>
-    //     <UpdateFeature 
-    //     updateFeature={this.updateFeature}
-    //     featureState={Object.keys(this.props.features)} 
 
-    //     />
-    //   </div>
-    // )
 
     const features = Object.keys(this.props.features).map((feature, idx) => {
       const featureHash = feature + '-' + idx;
       const options = this.props.features[feature].map(item => {
         const itemHash = slugify(JSON.stringify(item));
+
         return (
-          <div key={itemHash} className="feature__item">
-            <input
-              type="radio"
-              id={itemHash}
-              className="feature__option"
-              name={slugify(feature)}
-              checked={item.name === this.state.selected[feature].name}
-              onChange={e => this.updateFeature(feature, item)}
+          <div>
+            <UpdateFeature
+            feature={feature}
+            featureHash={featureHash}
+            options={options}
+            itemHash={itemHash}
+            USCurrencyFormat={USCurrencyFormat}
+            item={item}
+            handleUpdateFeature={this.updateFeature}
+            selected={this.state.selected}
             />
-            <label htmlFor={itemHash} className="feature__label">
-              {item.name} ({USCurrencyFormat.format(item.cost)})
-            </label>
           </div>
-        );
+        )
+
       });
 
       return (
@@ -105,14 +98,6 @@ class App extends Component {
           />
         </div>
 
-
-        // <div className="summary__option" key={featureHash}>
-        //   <div className="summary__option__label">{feature} </div>
-        //   <div className="summary__option__value">{selectedOption.name}</div>
-        //   <div className="summary__option__cost">
-        //     {USCurrencyFormat.format(selectedOption.cost)}
-        //   </div>
-        // </div>
       );
     });
 
