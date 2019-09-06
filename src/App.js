@@ -40,6 +40,7 @@ class App extends Component {
   };
 
   updateFeature = (feature, newValue) => {
+    console.log(feature, newValue)
     const selected = Object.assign({}, this.state.selected);
     selected[feature] = newValue;
     this.setState({
@@ -48,8 +49,6 @@ class App extends Component {
   };
 
   render() {
-
-
 
     const features = Object.keys(this.props.features).map((feature, idx) => {
       const featureHash = feature + '-' + idx;

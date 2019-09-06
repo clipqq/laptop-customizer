@@ -10,6 +10,7 @@ class UpdateFeature extends React.Component {
     }
 
     render() {
+        console.log('UpdateFeature fired')
         return (
             <div key={this.state.appUpdate.itemHash} className="feature__item">
               <input
@@ -19,7 +20,7 @@ class UpdateFeature extends React.Component {
 
                 name={slugify(this.state.appUpdate.feature)}
                 checked={this.state.appUpdate.item.name === this.state.appUpdate.selected[this.state.appUpdate.feature].name}
-                onChange={e => this.props.updateFeature(this.state.appUpdate.feature, this.state.appUpdate.item)}
+                onChange={(e) => this.props.handleUpdateFeature(this.state.appUpdate.feature, this.state.appUpdate.item)}
               />
               <label htmlFor={this.state.appUpdate.itemHash} className="feature__label">
                 {this.state.appUpdate.item.name} ({this.state.appUpdate.USCurrencyFormat.format(this.state.appUpdate.item.cost)})
