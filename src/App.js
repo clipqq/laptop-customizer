@@ -6,6 +6,10 @@ import slugify from 'slugify';
 
 import './App.css';
 
+import RenderApp from './RenderApp'
+import Summarize from './Summarize';
+// import UpdateFeature from './UpdateFeature'
+
 // This object will allow us to
 // easily convert numbers into US dollar values
 const USCurrencyFormat = new Intl.NumberFormat('en-US', {
@@ -44,6 +48,17 @@ class App extends Component {
   };
 
   render() {
+
+    // return (
+    //   <div className='App'>
+    //     <UpdateFeature 
+    //     updateFeature={this.updateFeature}
+    //     featureState={Object.keys(this.props.features)} 
+
+    //     />
+    //   </div>
+    // )
+
     const features = Object.keys(this.props.features).map((feature, idx) => {
       const featureHash = feature + '-' + idx;
       const options = this.props.features[feature].map(item => {
@@ -80,13 +95,24 @@ class App extends Component {
       const selectedOption = this.state.selected[feature];
 
       return (
-        <div className="summary__option" key={featureHash}>
-          <div className="summary__option__label">{feature} </div>
-          <div className="summary__option__value">{selectedOption.name}</div>
-          <div className="summary__option__cost">
-            {USCurrencyFormat.format(selectedOption.cost)}
-          </div>
+        <div>
+          <Summarize
+            featureHash={featureHash}
+            feature={feature}
+            selectedOptionName={selectedOption.name}
+            USCurrencyFormat={USCurrencyFormat}
+            selectedOptionCost={selectedOption.cost}
+          />
         </div>
+
+
+        // <div className="summary__option" key={featureHash}>
+        //   <div className="summary__option__label">{feature} </div>
+        //   <div className="summary__option__value">{selectedOption.name}</div>
+        //   <div className="summary__option__cost">
+        //     {USCurrencyFormat.format(selectedOption.cost)}
+        //   </div>
+        // </div>
       );
     });
 
@@ -97,25 +123,12 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header>
-          <h1>ELF Computing | Laptops</h1>
-        </header>
-        <main>
-          <form className="main__form">
-            <h2>Customize your laptop</h2>
-            {features}
-          </form>
-          <section className="main__summary">
-            <h2>Your cart</h2>
-            {summary}
-            <div className="summary__total">
-              <div className="summary__total__label">Total</div>
-              <div className="summary__total__value">
-                {USCurrencyFormat.format(total)}
-              </div>
-            </div>
-          </section>
-        </main>
+        <RenderApp
+          features={features}
+          summary={summary}
+          USCurrencyFormat={USCurrencyFormat}
+          total={total}
+        />
       </div>
     );
   }
