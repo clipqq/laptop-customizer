@@ -1,26 +1,38 @@
 import React from 'react'
 
+const USCurrencyFormat = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+});
+
+
 class Summarize extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            appSummary: props
-        }
     }
 
     render() {
-        return (
-            <div>
-                {console.log('Summarize fired')}
-                <div className="summary__option" key={this.state.appSummary.featureHash}>
-                    <div className="summary__option__label">{this.state.appSummary.feature} </div>
-                    <div className="summary__option__value">{this.state.appSummary.selectedOptionName}</div>
+        console.log('Summarize features fired')
+
+        const summary = Object.keys(this.props.selected).map((feature, idx) => {
+            const featureHash = feature + '-' + idx;
+            const selectedOption = this.props.selected[feature];
+
+            return (
+                <div className="summary__option" key={featureHash}>
+                    <div className="summary__option__label">{feature} </div>
+                    <div className="summary__option__value">{selectedOption.name}</div>
                     <div className="summary__option__cost">
-                        {this.state.appSummary.USCurrencyFormat.format(this.state.appSummary.selectedOptionCost)}
+                        {USCurrencyFormat.format(selectedOption.cost)}
                     </div>
                 </div>
+            );
+        });
+        console.log('Summarize features completed')
 
-            </div>
+
+        return (
+            { summary }
         )
     }
 
