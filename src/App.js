@@ -50,6 +50,9 @@ class App extends Component {
       (acc, curr) => acc + this.state.selected[curr].cost,
       0
     );
+    console.log('app side features', this.props.features)
+    console.log('app side selected', this.state.selected)
+
 
     return (
       <div>
@@ -64,6 +67,7 @@ class App extends Component {
               <MapFeatureName
                 features={this.props.features}
                 selected={this.state.selected}
+                updateFeature = {this.updateFeature}
               />
 
             </form>
