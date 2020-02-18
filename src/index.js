@@ -11,8 +11,7 @@ const FEATURES = {
     },
     {
       name: 'Professor X AMD Fire Breather with sidewinder technology',
-      cost: 1200
-    }
+      cost: 1200    }
   ],
   "Operating System": [
     {
